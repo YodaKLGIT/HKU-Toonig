@@ -285,6 +285,8 @@ MonoBehaviour:
   DeadSprite: {fileID: 21300000, guid: 8328cd3accfb295429c57ff0b60af3ea, type: 3}
   VictorySprite: {fileID: 21300000, guid: 7fad44767727f6c43bf2bc7771c6507f, type: 3}
   hitPoints: 0
+  damagePoints: 0
+  damagedPlayerThreshold: 20
   damagedThreshold: 20
   deadThreshold: 30
 --- !u!1 &415900068
@@ -362,6 +364,37 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 415900068}
   m_CullTransparentMesh: 1
+--- !u!1 &595046276
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 595046277}
+  m_Layer: 0
+  m_Name: Music Track
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &595046277
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 595046276}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1010.44415, y: 539.09735, z: -54.255363}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1017742328
 GameObject:
   m_ObjectHideFlags: 0
@@ -1507,4 +1540,5 @@ SceneRoots:
   - {fileID: 1386721840}
   - {fileID: 1943455561}
   - {fileID: 73876586}
+  - {fileID: 595046277}
   - {fileID: 5431010205148939482}

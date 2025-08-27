@@ -9,6 +9,7 @@ public class NoteLine : MonoBehaviour
 
     // Reference to your DraakStateHandler
     public DraakStateHandler draakStateHandler;
+
     void Start()
     {
         if (draakStateHandler == null)
@@ -21,16 +22,30 @@ public class NoteLine : MonoBehaviour
 
     void Update()
     {
-        // Track notes that are close to the line
         Note[] notes = FindObjectsOfType<Note>();
         currentNote = null;
+
         foreach (var note in notes)
         {
             float distance = Mathf.Abs(note.transform.position.y - noteLine.position.y);
+
+            // Check for hit
             if (distance <= hitThreshold)
             {
                 currentNote = note;
                 break;
+            }
+
+            // Check if note passed the line (missed)
+            if (note.transform.position.y < noteLine.position.y + 1 - hitThreshold)
+            {
+                // Apply damage points for miss
+                if (draakStateHandler != null)
+                {
+                    draakStateHandler.AddDamagePoints(1); // Add 1 damage for missed note
+                }
+
+                Destroy(note.gameObject);
             }
         }
 
@@ -41,13 +56,10 @@ public class NoteLine : MonoBehaviour
 
             if (draakStateHandler != null)
             {
-                draakStateHandler.AddHitPoints(1);
-            }
-            else {
-                Debug.Log("not working maannn");
+                draakStateHandler.AddHitPoints(1); // Add 1 hit point for successful note
             }
 
-                Destroy(currentNote.gameObject);
+            Destroy(currentNote.gameObject);
             currentNote = null;
         }
     }

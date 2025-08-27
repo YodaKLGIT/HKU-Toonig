@@ -20,7 +20,11 @@ public class DraakStateHandler : MonoBehaviour
     public Sprite VictorySprite;
 
     [Header("Health Settings")]
-    public int hitPoints = 0;       // Points gained by hitting notes
+    public int hitPoints = 0;// Points gained by hitting notes
+    public int damagePoints= 0;
+    public int damagedPlayerThreshold = 20;
+
+
     public int damagedThreshold = 20;
     public int deadThreshold = 30;
 
@@ -33,6 +37,9 @@ public class DraakStateHandler : MonoBehaviour
             CurrentState = DraakState.Damaged;
         else
             CurrentState = DraakState.Normal;
+        // dragon win
+        if (damagePoints >= damagedPlayerThreshold)
+            CurrentState = DraakState.Victory;
 
         // Update sprite
         switch (CurrentState)
@@ -60,7 +67,7 @@ public class DraakStateHandler : MonoBehaviour
 
     public void AddDamagePoints(int points)
     {
-        hitPoints += points;
-        Debug.Log("Missed! Added damage points. Total: " + hitPoints);
+        damagePoints += points;
+        Debug.Log("Missed! Added damage points. Total: " + damagePoints);
     }
 }
