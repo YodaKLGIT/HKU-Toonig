@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class DraakStateHandler : MonoBehaviour
 {
@@ -20,13 +21,14 @@ public class DraakStateHandler : MonoBehaviour
     public Sprite VictorySprite;
 
     [Header("Health Settings")]
-    public int hitPoints = 0;// Points gained by hitting notes
-    public int damagePoints= 0;
+    public int hitPoints = 0; // Points gained by hitting notes
+    public int damagePoints = 0; // Points gained by missed notes
     public int damagedPlayerThreshold = 20;
-
 
     public int damagedThreshold = 20;
     public int deadThreshold = 30;
+
+    private bool sceneLoaded = false; // Ensure scene loads only once
 
     void Update()
     {
@@ -37,7 +39,8 @@ public class DraakStateHandler : MonoBehaviour
             CurrentState = DraakState.Damaged;
         else
             CurrentState = DraakState.Normal;
-        // dragon win
+
+        // Dragon victory if player damage threshold is reached
         if (damagePoints >= damagedPlayerThreshold)
             CurrentState = DraakState.Victory;
 
@@ -56,6 +59,13 @@ public class DraakStateHandler : MonoBehaviour
             case DraakState.Victory:
                 Image.sprite = VictorySprite;
                 break;
+        }
+
+        // Load ending scene if dead or victory
+        if (!sceneLoaded && (CurrentState == DraakState.Dead || CurrentState == DraakState.Victory))
+        {
+            sceneLoaded = true;
+            SceneManager.LoadScene("Ending scene");
         }
     }
 
