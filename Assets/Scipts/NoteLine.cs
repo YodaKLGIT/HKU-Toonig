@@ -1,14 +1,18 @@
 using UnityEngine;
-using UnityEngine.UI;
 
 public class NoteLine : MonoBehaviour
 {
     public RectTransform noteLine;
-    public float hitThreshold = 3f; // Pixels above/below line that count as hit
+    public float hitThreshold = 3f;
     private Note currentNote;
 
-    // Reference to your DraakStateHandler
     public DraakStateHandler draakStateHandler;
+
+    [Header("Characters that react to hits")]
+    public CharacterStateHandler[] characterHandlers;
+
+    [Header("Note cleanup")]
+    public float missYThreshold = -2000f; // y-position at which notes are destroyed
 
     void Start()
     {
@@ -37,16 +41,18 @@ public class NoteLine : MonoBehaviour
             }
 
             // Check if note passed the line (missed)
-            if (note.transform.position.y < noteLine.position.y + 1 - hitThreshold)
+            if (note.transform.position.y < noteLine.position.y - hitThreshold && !note.wasMissed)
             {
-                // Apply damage points for miss
                 if (draakStateHandler != null)
-                {
-
-                    draakStateHandler.AddDamagePoints(1); // Add 1 damage for missed note
-                }
+                    draakStateHandler.AddDamagePoints(1);
 
                 Debug.Log("damage!");
+                note.wasMissed = true; // flag so damage only applied once
+            }
+
+            // Cleanup once note is far enough down
+            if (note.transform.position.y < missYThreshold)
+            {
                 Destroy(note.gameObject);
             }
         }
@@ -57,12 +63,32 @@ public class NoteLine : MonoBehaviour
             Debug.Log("Hit!");
 
             if (draakStateHandler != null)
+                draakStateHandler.AddHitPoints(1);
+
+            if (characterHandlers.Length > 0)
             {
-                draakStateHandler.AddHitPoints(1); // Add 1 hit point for successful note
+                int randomIndex = Random.Range(0, characterHandlers.Length);
+                CharacterStateHandler chosen = characterHandlers[randomIndex];
+
+                if (chosen != null)
+                {
+                    chosen.ToggleActive();
+                    CancelInvoke(nameof(ResetCharacters));
+                    Invoke(nameof(ResetCharacters), 0.2f);
+                }
             }
 
             Destroy(currentNote.gameObject);
             currentNote = null;
+        }
+    }
+
+    void ResetCharacters()
+    {
+        foreach (var handler in characterHandlers)
+        {
+            if (handler != null)
+                handler.ResetToNormal();
         }
     }
 }

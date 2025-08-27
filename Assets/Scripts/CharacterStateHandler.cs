@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -10,12 +8,16 @@ public class CharacterStateHandler : MonoBehaviour
         Normal,
         Active
     }
-    
+
     public CharacterState CurrentState;
     public Image Image;
-    
+
+    [Header("Sprites")]
     public Sprite NormalSprite;
-    public Sprite ActiveSprite;
+    public Sprite ActiveSprite1;
+    public Sprite ActiveSprite2;
+
+    private bool useFirstActive = true;
 
     void Update()
     {
@@ -24,10 +26,21 @@ public class CharacterStateHandler : MonoBehaviour
             case CharacterState.Normal:
                 Image.sprite = NormalSprite;
                 break;
-            
+
             case CharacterState.Active:
-                Image.sprite = ActiveSprite;
+                Image.sprite = useFirstActive ? ActiveSprite1 : ActiveSprite2;
                 break;
         }
+    }
+
+    public void ToggleActive()
+    {
+        CurrentState = CharacterState.Active;
+        useFirstActive = !useFirstActive;
+    }
+
+    public void ResetToNormal()
+    {
+        CurrentState = CharacterState.Normal;
     }
 }

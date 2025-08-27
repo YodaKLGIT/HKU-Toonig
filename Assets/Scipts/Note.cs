@@ -5,6 +5,8 @@ public class Note : MonoBehaviour
     [HideInInspector] public float speed;
     [HideInInspector] public RectTransform targetLine;
     private RectTransform rect;
+    public bool wasMissed = false;
+
     public float destroyY = -10f; // Y position at which note is destroyed
 
     void Awake()
@@ -25,4 +27,6 @@ public class Note : MonoBehaviour
             Destroy(gameObject);
         }
     }
+
+
 }

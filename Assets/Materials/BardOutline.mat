@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: New Material
+  m_Name: BardOutline
   m_Shader: {fileID: -6465566751694194690, guid: ea95af9d59a608d4f8ee3d94e8113324, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
