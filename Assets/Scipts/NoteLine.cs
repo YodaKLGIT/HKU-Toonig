@@ -4,8 +4,20 @@ using UnityEngine.UI;
 public class NoteLine : MonoBehaviour
 {
     public RectTransform noteLine;
-    public float hitThreshold = 20f; // Pixels above/below line that count as hit
+    public float hitThreshold = 3f; // Pixels above/below line that count as hit
     private Note currentNote;
+
+    // Reference to your DraakStateHandler
+    public DraakStateHandler draakStateHandler;
+    void Start()
+    {
+        if (draakStateHandler == null)
+        {
+            draakStateHandler = FindObjectOfType<DraakStateHandler>();
+            if (draakStateHandler == null)
+                Debug.LogError("No DraakStateHandler found in scene!");
+        }
+    }
 
     void Update()
     {
@@ -26,7 +38,16 @@ public class NoteLine : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space) && currentNote != null)
         {
             Debug.Log("Hit!");
-            Destroy(currentNote.gameObject);
+
+            if (draakStateHandler != null)
+            {
+                draakStateHandler.AddHitPoints(1);
+            }
+            else {
+                Debug.Log("not working maannn");
+            }
+
+                Destroy(currentNote.gameObject);
             currentNote = null;
         }
     }

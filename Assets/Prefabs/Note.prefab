@@ -53,7 +53,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 0
   targetLine: {fileID: 0}
-  destroyY: -1000
+  destroyY: -397.2
 --- !u!222 &6851832634186383095
 CanvasRenderer:
   m_ObjectHideFlags: 0
