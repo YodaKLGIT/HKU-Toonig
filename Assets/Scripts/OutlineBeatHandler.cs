@@ -7,15 +7,22 @@ public class OutlineBeatHandler : MonoBehaviour
     public bool DebugInput = false;
     
     public float BeatIntensity = 1f;
-    public float FadeOutMultiplier = .1f;
+    public float FadeOutMultiplier = 1f;
     
     public Material OutlineMaterial;
+    public Color CorrectColor;
+    public Color IncorrectColor;
 
     private float currentIntensity;
 
-    public void OnBeat()
+    public void OnBeat(bool isCorrect)
     {
         currentIntensity = BeatIntensity;
+        
+        var color = isCorrect ? CorrectColor : IncorrectColor;
+        OutlineMaterial.SetColor("_Color", color);
+        
+        StopAllCoroutines();
         StartCoroutine(FadeOut());
     }
 
@@ -39,7 +46,12 @@ public class OutlineBeatHandler : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.B))
         {
-            OnBeat();
+            OnBeat(true);
+        }
+
+        if (Input.GetKeyDown(KeyCode.N))
+        {
+            OnBeat(false);
         }
     }
 }

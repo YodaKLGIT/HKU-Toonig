@@ -560,9 +560,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   DebugInput: 1
-  BeatIntensity: 1
-  FadeOutMultiplier: 1
+  BeatIntensity: 5
+  FadeOutMultiplier: 2.5
   OutlineMaterial: {fileID: 2100000, guid: 1da3a5286d498714badc472d370f51d6, type: 2}
+  CorrectColor: {r: 0.6761006, g: 0.85716236, b: 1, a: 0}
+  IncorrectColor: {r: 0.55345905, g: 0.15489888, b: 0.15489888, a: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
