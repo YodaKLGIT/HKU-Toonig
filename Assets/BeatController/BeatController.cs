@@ -9,11 +9,12 @@ public class BeatController : MonoBehaviour
     public Character attacker1;
     public Character attacker2;
     public Image beatIndicator; // UI Image reference
-    public float fadeTime = 0.3f; // how fast it fades out
+    public float fadeTime = 0.3f;
 
     private float secondsPerBeat;
     private float songPosition;
     private float nextBeatTime;
+    private Coroutine beatFlashRoutine;
 
     void Start()
     {
@@ -41,29 +42,46 @@ public class BeatController : MonoBehaviour
             {
                 if (Random.value < 0.5f) attacker1.Attack();
                 else attacker2.Attack();
+
+                // flash green for success
+                if (beatIndicator != null)
+                {
+                    if (beatFlashRoutine != null) StopCoroutine(beatFlashRoutine);
+                    beatFlashRoutine = StartCoroutine(BeatFlash(Color.green));
+                }
             }
             else
             {
                 Debug.Log("Missed the beat!");
+
+                // flash red for miss
+                if (beatIndicator != null)
+                {
+                    if (beatFlashRoutine != null) StopCoroutine(beatFlashRoutine);
+                    beatFlashRoutine = StartCoroutine(BeatFlash(Color.red));
+                }
             }
         }
 
-        // Beat reached
+        // Beat reached (neutral pulse)
         if (songPosition >= nextBeatTime)
         {
             nextBeatTime += secondsPerBeat;
-            if (beatIndicator != null) StartCoroutine(BeatFlash());
+
+            if (beatIndicator != null)
+            {
+                if (beatFlashRoutine != null) StopCoroutine(beatFlashRoutine);
+                beatFlashRoutine = StartCoroutine(BeatFlash(Color.white));
+            }
         }
     }
 
-    IEnumerator BeatFlash()
+    IEnumerator BeatFlash(Color flashColor)
     {
-        // flash to visible
-        Color c = beatIndicator.color;
+        Color c = flashColor;
         c.a = 1f;
         beatIndicator.color = c;
 
-        // fade back out
         float t = 0f;
         while (t < fadeTime)
         {
@@ -73,7 +91,6 @@ public class BeatController : MonoBehaviour
             yield return null;
         }
 
-        // ensure fully transparent
         c.a = 0f;
         beatIndicator.color = c;
     }

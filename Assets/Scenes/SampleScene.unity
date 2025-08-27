@@ -151,12 +151,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 646e13d14f02b8e4ebe301932988d4c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bpm: 120
-  tolerance: 0.25
+  bpm: 90
+  tolerance: 1
   attacker1: {fileID: 2076933481}
   attacker2: {fileID: 1477885363}
   beatIndicator: {fileID: 874873515}
-  fadeTime: 0.2
+  fadeTime: 0.5
 --- !u!4 &467473842
 Transform:
   m_ObjectHideFlags: 0
