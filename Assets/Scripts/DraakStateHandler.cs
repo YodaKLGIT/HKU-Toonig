@@ -62,22 +62,27 @@ public class DraakStateHandler : MonoBehaviour
         }
 
         // Load ending scene if dead or victory
-        if (!sceneLoaded && (CurrentState == DraakState.Dead || CurrentState == DraakState.Victory))
+        if (!sceneLoaded && (CurrentState == DraakState.Dead))
         {
             sceneLoaded = true;
             SceneManager.LoadScene("Ending scene");
+        }
+
+        // Load ending scene if dead or victory
+        if (!sceneLoaded && (CurrentState == DraakState.Victory))
+        {
+            sceneLoaded = true;
+            SceneManager.LoadScene("defeat scene");
         }
     }
 
     public void AddHitPoints(int points)
     {
         hitPoints += points;
-        Debug.Log("Added hit points. Total: " + hitPoints);
     }
 
     public void AddDamagePoints(int points)
     {
         damagePoints += points;
-        Debug.Log("Missed! Added damage points. Total: " + damagePoints);
     }
 }

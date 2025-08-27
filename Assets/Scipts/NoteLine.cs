@@ -42,9 +42,11 @@ public class NoteLine : MonoBehaviour
                 // Apply damage points for miss
                 if (draakStateHandler != null)
                 {
+
                     draakStateHandler.AddDamagePoints(1); // Add 1 damage for missed note
                 }
 
+                Debug.Log("damage!");
                 Destroy(note.gameObject);
             }
         }
