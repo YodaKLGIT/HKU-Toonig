@@ -6,7 +6,7 @@ public class Character : MonoBehaviour
 
     public void Attack()
     {
-        animator.SetTrigger("Attack");
+        //animator.SetTrigger("Attack");
         Debug.Log(name + " attacks!");
     }
 }
